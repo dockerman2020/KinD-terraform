@@ -19,3 +19,4 @@ controller:
     enabled: false
   extraArgs:
     publish-status-address: "localhost"
+    
