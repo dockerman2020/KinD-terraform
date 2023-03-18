@@ -21,3 +21,14 @@ variable "ingress_nginx_namespace" {
   description = "The nginx ingress namespace (it will be created if needed)."
   default     = "ingress-nginx"
 }
+
+variable "ipaddress" {
+  type        = string
+  description = "IP Address of the local host."
+}
+
+variable "metallb_location" {
+  type = string 
+  description = "The location of the metallb configuration"
+  default = "Volumes/LaCie/POC/MetalLB"
+}

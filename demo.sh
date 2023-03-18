@@ -10,3 +10,6 @@ sleep 10
 
 printf "\nYou should see 'foo' as a reponse below (if you do the ingress is working):\n"
 curl http://localhost/foo
+
+# printf "\nInstalling Metallb LoadBalancer. Please wait:\n"
+# kubectl apply -f /Volumes/LaCie/POC/MetalLB/metallb-native-v0139.yaml
