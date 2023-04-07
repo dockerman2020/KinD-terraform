@@ -34,10 +34,12 @@ resource "kind_cluster" "default" {
           extra_port_mappings {
               container_port = 80
               host_port      = 80
+              listen_address = "127.0.0.1"
           }
           extra_port_mappings {
               container_port = 443
               host_port      = 443
+              listen_address = "127.0.0.1"
           }
       }
       node {
