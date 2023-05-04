@@ -6,50 +6,52 @@ provider "kubernetes" {
 }
 
 resource "kind_cluster" "default" {
-    name            = var.kind_cluster_name
-    node_image      = "kindest/node:v1.26.2"
-    kubeconfig_path = pathexpand(var.kind_cluster_config_path)
-    wait_for_ready  = true
-
-  kind_config {
-      kind        = "Cluster"
-      api_version = "kind.x-k8s.io/v1alpha4"
-      networking {
-        api_server_address = (var.ipaddress)
-        api_server_port   = 58366
-      }
-      containerd_config_patches = [
-        <<-TOML
-        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
-            endpoint = ["http://kind-registry:5000"]
-        TOML
-         ]
-      node {
-          role = "control-plane"
-
-          kubeadm_config_patches = [
-            "kind: InitConfiguration\nnodeRegistration:\n  kubeletExtraArgs:\n    node-labels: \"ingress-ready=true\"\n"
-          ]
-
-          extra_port_mappings {
-              container_port = 80
-              host_port      = 80
-              listen_address = "127.0.0.1"
-          }
-          extra_port_mappings {
-              container_port = 443
-              host_port      = 443
-              listen_address = "127.0.0.1"
-          }
-      }
-      node {
-          role = "worker"
-      }
-      node {
-          role = "worker"
-      }
-      node {
-          role = "worker"
-      }
-  }
+  name   = var.kind_cluster_name
+  config = <<-EOF
+        apiVersion: kind.x-k8s.io/v1alpha4
+        kind: Cluster
+        nodes:
+        - role: control-plane
+          kubeadmConfigPatches:
+          - |
+            # kind: ClusterConfiguration
+            # apiServer:
+            #     extraArgs:
+            #       enable-admission-plugins: NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
+            kind:  InitConfiguration
+            nodeRegistration:
+                kubeletExtraArgs:
+                  node-labels: ingress-ready=true
+          extraPortMappings:
+          - containerPort: 80
+            hostPort: 80
+            listenAddress: "127.0.0.1"
+            protocol: TCP
+          - containerPort: 443
+            hostPort: 443
+            listenAddress: "127.0.0.1"
+            protocol: TCP
+          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+        - role: worker
+          extraMounts:
+          - hostPath: /Volumes/LaCie/POC/Vols/data
+            containerPath: /data
+          - hostPath: /Users/emmanuelmamudu/Jenkins
+            containerPath: /jenkins_data
+          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+        - role: worker
+          extraMounts:
+          - hostPath: /Users/emmanuelmamudu/Jenkins
+            containerPath: /jenkins_data
+          - hostPath: /Volumes/LaCie/POC/Vols/data
+            containerPath: /data
+          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+        - role: worker
+          extraMounts:
+          - hostPath: /Users/emmanuelmamudu/Jenkins
+            containerPath: /jenkins_data
+          - hostPath: /Volumes/LaCie/POC/Vols/data
+            containerPath: /data
+          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+    EOF
 }

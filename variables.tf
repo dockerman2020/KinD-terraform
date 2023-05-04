@@ -28,7 +28,7 @@ variable "ipaddress" {
 }
 
 variable "metallb_location" {
-  type = string 
+  type        = string
   description = "The location of the metallb configuration"
-  default = "Volumes/LaCie/POC/MetalLB"
+  default     = "Volumes/LaCie/POC/MetalLB"
 }

@@ -10,7 +10,7 @@ resource "kubernetes_namespace" "dev_ns" {
 
     name = "dev"
   }
-  # depends_on = [
-  #   kind_cluster.default
-  # ]
+  depends_on = [
+    kind_cluster.default
+  ]
 }

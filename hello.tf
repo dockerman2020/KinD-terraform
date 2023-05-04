@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: hello
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -56,7 +56,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "demo.absip.hack"
+  - host: "demo.absi.test"
     http:
       paths:
         - pathType: Prefix
