@@ -24,11 +24,17 @@ variable "ingress_nginx_namespace" {
 
 variable "ipaddress" {
   type        = string
-  description = "IP Address of the local host."
+  description = "IP Address of the local host (To be used for the KinD cluster address)."
+}
+
+variable "ip_port" {
+  type        = string
+  description = "Port number, so kinD will not generate and assign random port."
+  default = "58350"
 }
 
 variable "metallb_location" {
   type        = string
   description = "The location of the metallb configuration"
-  default     = "Volumes/LaCie/POC/MetalLB"
+  default     = "/Volumes/LaCie/POC/MetalLB"
 }

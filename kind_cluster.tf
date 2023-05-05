@@ -10,6 +10,9 @@ resource "kind_cluster" "default" {
   config = <<-EOF
         apiVersion: kind.x-k8s.io/v1alpha4
         kind: Cluster
+        networking:
+          apiServerAddress: "${var.ipaddress}"
+          apiServerPort: ${var.ip_port}
         nodes:
         - role: control-plane
           kubeadmConfigPatches:

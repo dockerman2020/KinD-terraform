@@ -1,16 +1,16 @@
-resource "kubernetes_namespace" "dev_ns" {
-  metadata {
-    annotations = {
-      name = "dev-annotation"
-    }
+# resource "kubernetes_namespace" "dev_ns" {
+#   metadata {
+#     annotations = {
+#       name = "dev-annotation"
+#     }
 
-    labels = {
-      "kubernetes.io/metadata.name" = "dev"
-    }
+#     labels = {
+#       "kubernetes.io/metadata.name" = "dev"
+#     }
 
-    name = "dev"
-  }
-  depends_on = [
-    kind_cluster.default
-  ]
-}
+#     name = "dev"
+#   }
+#   depends_on = [
+#     kind_cluster.default
+#   ]
+# }
