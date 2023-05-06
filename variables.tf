@@ -30,7 +30,7 @@ variable "ipaddress" {
 variable "ip_port" {
   type        = string
   description = "Port number, so kinD will not generate and assign random port."
-  default = "58350"
+  default     = "58350"
 }
 
 variable "metallb_location" {
