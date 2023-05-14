@@ -67,7 +67,7 @@ resource "kubernetes_namespace" "jenkins_worker_ns" {
   depends_on = [helm_release.ingress_nginx]
 }
 
-resource "kubernetes_namespace" "jenkins_worker_ns" {
+resource "kubernetes_namespace" "argocd_ns" {
   metadata {
     annotations = {
       name = "argocd"
