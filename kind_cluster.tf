@@ -37,24 +37,30 @@ resource "kind_cluster" "default" {
           image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
         - role: worker
           extraMounts:
-          # - hostPath: /Volumes/LaCie/POC/Vols/data
-          #   containerPath: /data
           - hostPath: /Users/emmanuelmamudu/ContainerData
             containerPath: /ContainerData
+          # - hostPath: /Users/emmanuelmamudu/.docker
+          #   containerPath: /JenkinsDocker
+          - hostPath: /var/run/docker.sock
+            containerPath: /var/run/docker.sock
           image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
         - role: worker
           extraMounts:
           - hostPath: /Users/emmanuelmamudu/ContainerData
             containerPath: /ContainerData
-          # - hostPath: /Volumes/LaCie/POC/Vols/data
-          #   containerPath: /data
+          - hostPath: /var/run/docker.sock
+            containerPath: /var/run/docker.sock
+          # - hostPath: /Users/emmanuelmamudu/.docker
+          #   containerPath: /JenkinsDocker
           image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
         - role: worker
           extraMounts:
           - hostPath: /Users/emmanuelmamudu/ContainerData
             containerPath: /ContainerData
-          # - hostPath: /Volumes/LaCie/POC/Vols/data
-          #   containerPath: /data
+          - hostPath: /var/run/docker.sock
+            containerPath: /var/run/docker.sock
+          # - hostPath: /Users/emmanuelmamudu/.docker
+          #   containerPath: /JenkinsDocker
           image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
     EOF
 }
