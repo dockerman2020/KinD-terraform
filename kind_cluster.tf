@@ -11,7 +11,9 @@ resource "kind_cluster" "default" {
         apiVersion: kind.x-k8s.io/v1alpha4
         kind: Cluster
         networking:
-          apiServerAddress: "${var.ipaddress}"
+          disableDefaultCNI: true
+          podSubnet: ${var.kind-pubsubnet}
+          apiServerAddress: ${var.ipaddress}
           apiServerPort: ${var.ip_port}
         nodes:
         - role: control-plane
@@ -34,33 +36,27 @@ resource "kind_cluster" "default" {
             hostPort: 443
             listenAddress: "127.0.0.1"
             protocol: TCP
-          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+          image: kindest/node:${var.kind-image}
         - role: worker
           extraMounts:
-          - hostPath: /Users/emmanuelmamudu/ContainerData
-            containerPath: /ContainerData
-          # - hostPath: /Users/emmanuelmamudu/.docker
-          #   containerPath: /JenkinsDocker
+          - hostPath: ${var.kind-hostpath}
+            containerPath: ${var.kind-containerpath}
           - hostPath: /var/run/docker.sock
             containerPath: /var/run/docker.sock
-          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+          image: kindest/node:${var.kind-image}
         - role: worker
           extraMounts:
-          - hostPath: /Users/emmanuelmamudu/ContainerData
-            containerPath: /ContainerData
+          - hostPath: ${var.kind-hostpath}
+            containerPath: ${var.kind-containerpath}
           - hostPath: /var/run/docker.sock
             containerPath: /var/run/docker.sock
-          # - hostPath: /Users/emmanuelmamudu/.docker
-          #   containerPath: /JenkinsDocker
-          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+          image: kindest/node:${var.kind-image}
         - role: worker
           extraMounts:
-          - hostPath: /Users/emmanuelmamudu/ContainerData
-            containerPath: /ContainerData
+          - hostPath: ${var.kind-hostpath}
+            containerPath: ${var.kind-containerpath}
           - hostPath: /var/run/docker.sock
             containerPath: /var/run/docker.sock
-          # - hostPath: /Users/emmanuelmamudu/.docker
-          #   containerPath: /JenkinsDocker
-          image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+          image: kindest/node:${var.kind-image}
     EOF
 }
