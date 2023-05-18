@@ -36,6 +36,9 @@ resource "kind_cluster" "default" {
             hostPort: 443
             listenAddress: "127.0.0.1"
             protocol: TCP
+          - containerPort: 31923
+            hostPort: 8080
+            listenAddress: "192.168.0.86"
           image: kindest/node:${var.kind-image}
         - role: worker
           extraMounts:
